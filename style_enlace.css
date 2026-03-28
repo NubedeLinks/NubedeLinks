@@ -1,0 +1,110 @@
+:root {
+    /* CONTROL MAESTRO DE ESCALA (Cambia este valor para redimensionar TODO) */
+    --base-font-size: 16px; 
+    
+    /* Colores del diseño */
+    --page-bg-color: #00b4f0; /* Azul de fondo */
+    --card-bg-color: #ffffff;
+    --image-purple-color: #6a0dad; /* Morado intenso */
+    --text-color: #000000;
+}
+
+/* Reinicio de estilos básicos */
+* {
+    box-shadow: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--page-bg-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: 'Arial', 'Helvetica Neue', sans-serif;
+    color: var(--text-color);
+}
+
+/* Estenedor principal de la tarjeta */
+.card {
+    /* Usamos em para que todo dependa de --base-font-size */
+    font-size: var(--base-font-size); 
+    background-color: var(--card-bg-color);
+    width: 32em; /* Ancho proporcional */
+    border-radius: 2.5em; /* Bordes redondeados */
+    padding: 2em;
+    box-shadow: 0 1.2em 2.5em rgba(0, 0, 0, 0.4); /* Sombra difuminada */
+    display: flex;
+    flex-direction: column;
+}
+
+/* Parte superior horizontal */
+.card-main-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 2em;
+}
+
+/* Contenedor de la imagen (recuadro morado) */
+.image-container {
+    background-color: var(--image-purple-color);
+    width: 10em; /* Tamaño fijo proporcional */
+    height: 10em; /* Tamaño fijo proporcional */
+}
+
+/* Contenedor de los textos principales */
+.text-container {
+    flex: 1; /* Ocupa el espacio restante */
+    margin-left: 1.5em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centrar textos verticalmente con respecto a la imagen */
+}
+
+/* Título principal */
+.main-title {
+    font-size: 1.5em; /* 1.5 veces el tamaño base */
+    font-weight: 800;
+    margin-bottom: 0.6em;
+    text-transform: uppercase;
+}
+
+/* Estilos para la info técnica */
+.info-group p, .requirements-list li {
+    font-size: 0.9em;
+    line-height: 1.3em;
+    text-transform: uppercase;
+}
+
+/* Lista de requisitos */
+.requirements-list {
+    list-style: none;
+    margin-bottom: 0.1em;
+}
+
+.requirements-list li::before {
+    content: "-";
+    margin-right: 0.3em;
+}
+
+/* Parte inferior (Texto de espera) */
+.card-footer {
+    text-align: center;
+    padding-top: 1em;
+    border-top: 1px solid #eeeeee; /* Línea sutil divisoria */
+}
+
+.waiting-text {
+    font-size: 1em;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: var(--text-color);
+}
+
+.miniatura {
+max-width: 100%;
+  height: auto;
+  display: block; /* Elimina un pequeño espacio en blanco abajo */
+}
