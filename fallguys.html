@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de Enlaces Concepto</title>
+    
+    <style>
+        /* CSS3 INCORPORADO */
+        
+        /* 1. Configuración general del cuerpo (Fondo y fuente) */
+        body {
+            /* El color cyan exacto de la imagen */
+            background-color: #00acee; 
+            margin: 0;
+            padding: 20px;
+            /* Usamos fuentes del sistema para una carga rápida y legible */
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* 2. Estilo del Título Principal con efecto de borde */
+        .page-title {
+            color: white;
+            text-transform: uppercase;
+            text-align: center;
+            font-size: 2.5rem; /* Ajuste el tamaño según necesite */
+            font-weight: 800;
+            margin-top: 20px;
+            margin-bottom: 40px;
+            line-height: 1.2;
+            
+            /* Esta técnica múltiple crea el borde negro 'burbuja' */
+            text-shadow: 
+                -2px -2px 0 #000,  
+                 2px -2px 0 #000,
+                -2px  2px 0 #000,
+                 2px  2px 0 #000,
+                -3px -3px 2px rgba(0,0,0,0.4), /* Sombra suave para relieve */
+                 3px  3px 2px rgba(0,0,0,0.4);
+        }
+
+        /* 3. Contenedor para alinear los botones en columna */
+        .links-container {
+            width: 100%;
+            max-width: 600px; /* Ancho máximo para que no se estire demasiado en PC */
+            display: flex;
+            flex-direction: column;
+            gap: 15px; /* Espaciado uniforme entre botones */
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        /* 4. Estilo de los Botones estilo Cápsula */
+        .btn-link {
+            /* Diseño y forma */
+            background-color: white;
+            color: #000; /* Texto negro */
+            text-decoration: none; /* Quitar subrayado de enlace */
+            text-transform: uppercase;
+            font-weight: bold;
+            font-size: 1.2rem;
+            
+            /* Esta es la clave del efecto cápsula: un radio muy alto */
+            border-radius: 50px; 
+            
+            /* Relleno interno para la forma */
+            padding: 15px 30px;
+            width: 100%; /* El botón se expande al ancho del contenedor */
+            box-sizing: border-box; /* Asegura que el padding no afecte el ancho total */
+            text-align: center;
+            
+            /* Efecto de sombra difuminada y suave como en la imagen */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+            
+            /* Transición suave para el efecto hover */
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        /* 5. Efecto al pasar el mouse (hover) para interactividad */
+        .btn-link:hover {
+            transform: translateY(-3px); /* Pequeño salto hacia arriba */
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.35); /* Sombra más fuerte al 'flotar' */
+        }
+    </style>
+</head>
+<body>
+    <h1 class="page-title">
+        FALL GUYS
+    </h1>
+
+    <div class="links-container">
+        <a href="https://ouo.io/EcU3u03" class="btn-link">Fall Guys para PC</a>
+        <a href="https://ouo.io/CDRs91" class="btn-link">Fall Guys para android apk</a>
+    <!--    <a href="https://ouo.io/185R4i" class="btn-link">PARTE 3</a>
+        <a href="https://ouo.io/DWtr0Z" class="btn-link">PARTE 4</a>
+        <a href="https://ouo.io/3WlHnWK" class="btn-link">PARTE 5</a>
+        <a href="https://ouo.io/vd0djn" class="btn-link">PARTE 6</a>
+        <a href="https://ouo.io/PL25Cu" class="btn-link">PARTE 7</a>
+        <a href="https://ouo.io/rOliS4" class="btn-link">PARTE 8</a>
+        <a href="https://ouo.io/xM4oO3" class="btn-link">PARTE 9</a>
+        <a href="https://ouo.io/NXcSgH" class="btn-link">ACTUALIZACIÓN V1.122</a>
+        <a href="https://ouo.io/3aMxLk" class="btn-link">ACTUALIZACIÓN OPCIONAL PARA LOS QUE TIENEN EL JUEGO EN V1.119</a>
+        <a href="https://ouo.io/j1O7aAq" class="btn-link">PARTE 2 DE ACTUALIZACIÓN OPCIONAL PARA LOS QUE TIENEN EL JUEGO EN V1.119</a>
+        <a href="https://odysee.com/@pivigames:c/simis:9?src=embed&t=7.402559" class="btn-link">TUTORIAL DE INSTALACION</a>
+        <a href="https://youtu.be/Zi5Ve5kwiAY" class="btn-link">TUTORIAL COMO TEENR LA GALERIA FUNCIONAL EN MODO ONLINE </a> -->
+       <!-- <a href="#" class="btn-link">PARTE 15</a>
+        <a href="#" class="btn-link">PARTE 16</a>
+        <a href="#" class="btn-link">PARTE 17</a>
+        <a href="#" class="btn-link">PARTE 18</a>
+        <a href="#" class="btn-link">PARTE 19</a>
+        <a href="" class="btn-link">PARTE 20</a>  -->
+    </div>
+</body>
+</html>
