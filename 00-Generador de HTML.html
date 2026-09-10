@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Generador y Descargador de Páginas Web</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f4f4f9;
+    }
+    .formulario, .resultado {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+    }
+    .formulario label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    .formulario input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      box-sizing: border-box;
+    }
+    button {
+      background-color: #27ae60;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 15px;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color: #219653;
+    }
+    .resultado {
+      border-top: 4px solid #27ae60;
+    }
+    .resultado img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 15px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- FORMULARIO PARA CAPTURAR DATOS -->
+  <div class="formulario">
+    <h2>Configura tu nueva página</h2>
+    
+    <label for="input-nombre">1. Nombre de la página (Título H1):</label>
+    <input type="text" id="input-nombre" placeholder="Ej. Mi Blog de Viajes">
+
+    <label for="input-imagen">2. Ruta o enlace de la imagen:</label>
+    <input type="text" id="input-imagen" placeholder="Ej. https://picsum.photos">
+
+    <label for="input-enlace">3. Enlace de destino (href):</label>
+    <input type="text" id="input-enlace" placeholder="Ej. https://google.com">
+
+    <button onclick="generarYDescargar()">Generar y Descargar Página Web</button>
+  </div>
+
+  <!-- LÓGICA EN JAVASCRIPT -->
+  <script>
+    function generarYDescargar() {
+      // 1. Guardamos los datos en variables
+      let nombrePagina = document.getElementById("input-nombre").value;
+      let rutaImagen = document.getElementById("input-imagen").value;
+      let urlEnlace = document.getElementById("input-enlace").value;
+
+      // Validamos que no haya campos vacíos
+      if (nombrePagina === "" || rutaImagen === "" || urlEnlace === "") {
+        alert("Por favor, llena todos los campos del formulario.");
+        return;
+      }
+
+      // 2. Creamos la estructura del nuevo archivo HTML completo dentro de una variable
+      let codigoHTML = `<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style_2026.css">
+    <title>${nombrePagina}</title>
+</head>
+<body>
+  <div class="centrar">
+      <div class="contenedor">
+          <div class="imagentitulo">
+            <img src="img/nube.png" alt="Nube" style="width: 50px; height: 50px;">
+            <h3>NUBE DE LINKS</h3>
+          </div>
+          <h1>${nombrePagina}</h1>
+          <img src="img/${rutaImagen}" alt="una imagen" style="width: 280px;>
+          <p style="color: gray;">espere 5 segundos</p>
+      </div>
+  </div> <!--DIV CENTRADOR -->
+  <script type="text/javascript">                             //Redireccionamiento tras 5 segundos
+      setTimeout( function() { window.location.href ="${urlEnlace}"; }, 4000 );
+  ` + `</scr` + `ipt>
+</body>
+</html>`;
+      // 4. TRUCO DE DESCARGA: Creamos el archivo descargable
+      // Convertimos el texto del código HTML en un archivo binario (Blob)
+      let blob = new Blob([codigoHTML], { type: "text/html" });
+      
+      // Creamos un enlace invisible en la memoria
+      let enlaceDescarga = document.createElement("a");
+      
+      // Le asignamos el archivo virtual y el nombre que tendrá al guardarse
+      enlaceDescarga.href = URL.createObjectURL(blob);
+      enlaceDescarga.download = "mi_pagina.html";
+      
+      // Hacemos un "clic" automático para que empiece la descarga
+      enlaceDescarga.click();
+      
+      // Limpiamos la memoria
+      URL.revokeObjectURL(enlaceDescarga.href);
+    }
+  </script>
+
+</body>
+</html>
