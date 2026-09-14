@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generador y Copiador de Enlaces</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-color: #f4f4f9;
+      color: #333;
+      padding: 20px;
+    }
+
+    .container {
+      background: #ffffff;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+      width: 100%;
+      max-width: 480px;
+    }
+
+    h1 {
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+      color: #1a1a1a;
+      text-align: center;
+    }
+
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    label {
+      font-size: 0.875rem;
+      color: #666;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+
+    input[type="text"]:focus {
+      border-color: #0066cc;
+    }
+
+    .status-msg {
+      margin-top: 1rem;
+      font-size: 0.875rem;
+      text-align: center;
+      min-height: 1.25rem;
+      font-weight: 500;
+      color: #2e7d32;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    .status-msg.visible {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Generador de Enlace</h1>
+    <div class="input-group">
+      <label for="userInput">Escribe el texto y presiona ENTER:</label>
+      <input type="text" id="userInput" placeholder="Ej. mantequilla" autofocus>
+    </div>
+    <div id="status" class="status-msg">¡Copiado al portapapeles!</div>
+  </div>
+
+  <script>
+    const BASE_URL = "https://nubedelinks.github.io/NubedeLinks/";
+    const input = document.getElementById('userInput');
+    const status = document.getElementById('status');
+    let timeoutId;
+
+    input.addEventListener('keydown', async (event) => {
+      // Verifica si la tecla presionada es ENTER
+      if (event.key === 'Enter') {
+        const textValue = input.value.trim();
+        const fullUrl = BASE_URL + textValue;
+
+        try {
+          // Copia el texto al portapapeles usando la Clipboard API
+          await navigator.clipboard.writeText(fullUrl);
+          
+          // Muestra un mensaje visual de confirmación
+          status.textContent = `¡Copiado: ${fullUrl}!`;
+          status.classList.add('visible');
+
+          // Oculta el mensaje después de 2.5 segundos
+          clearTimeout(timeoutId);
+          timeoutId = setTimeout(() => {
+            status.classList.remove('visible');
+          }, 2500);
+
+        } catch (err) {
+          console.error('Error al copiar al portapapeles: ', err);
+          status.textContent = 'Error al copiar';
+          status.style.color = '#d32f2f';
+          status.classList.add('visible');
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>
