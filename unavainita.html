@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calzado Pro | Tu Estilo a un Clic</title>
+    
+    <!-- Fuentes y CDN de Iconos -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-green': '#038C25',
+                        'brand-yellow1': '#F2CB05',
+                        'brand-yellow2': '#F2C641',
+                        'brand-red': '#BF0F0F',
+                        'brand-dark': '#0E1A26',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Estilos personalizados para el carrusel y scrollbar */
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .snap-x {
+            scroll-snap-type: x mandatory;
+        }
+        .snap-center {
+            scroll-snap-align: center;
+        }
+        
+        /* Animación suave para las tarjetas */
+        .product-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(14, 26, 38, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-brand-dark font-sans antialiased">
+
+    <!-- Navegación -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <div class="flex items-center">
+                    <span class="text-3xl font-extrabold text-brand-dark tracking-tighter">
+                        Calzado<span class="text-brand-green">Pro</span>
+                    </span>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="hidden sm:block text-sm font-semibold text-gray-500">
+                        Atención 24/7 vía WhatsApp
+                    </div>
+                    <a href="#productos" class="bg-brand-yellow1 hover:bg-brand-yellow2 text-brand-dark font-bold py-2 px-6 rounded-full transition-colors shadow-sm">
+                        Ver Catálogo
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sección Hero (Embudo de ventas - Atracción) -->
+    <header class="relative bg-brand-dark text-white overflow-hidden">
+        <div class="absolute inset-0 z-0 opacity-20">
+            <img src="https://images.unsplash.com/photo-1460353581641-37baddab0fa2?auto=format&fit=crop&w=1500&q=80" alt="Zapatos de fondo" class="w-full h-full object-cover">
+        </div>
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32 text-center lg:text-left flex flex-col lg:flex-row items-center">
+            <div class="lg:w-1/2">
+                <span class="inline-block py-1 px-3 rounded-full bg-brand-red text-white text-sm font-bold mb-4 animate-pulse">
+                    ¡Ofertas de Temporada!
+                </span>
+                <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight mb-6">
+                    Pisa Fuerte. <br>
+                    <span class="text-brand-yellow1">Estilo y Confort</span> a tu alcance.
+                </h1>
+                <p class="text-lg sm:text-xl text-gray-300 mb-8 max-w-2xl mx-auto lg:mx-0">
+                    Descubre nuestra colección exclusiva. Compras rápidas y seguras directamente a través de WhatsApp. Envío rápido garantizado.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                    <a href="#productos" class="bg-brand-green hover:bg-green-700 text-white font-bold text-lg py-4 px-8 rounded-xl shadow-lg transition-transform hover:scale-105 flex items-center justify-center gap-2">
+                        Comprar Ahora <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Carrusel de Más Vendidos (Prueba Social) -->
+    <section class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl font-extrabold text-brand-dark mb-2">🔥 Los Más Buscados</h2>
+                <p class="text-gray-500">Los zapatos favoritos de nuestros clientes</p>
+            </div>
+            
+            <div id="carousel-container" class="flex overflow-x-auto gap-6 pb-8 snap-x hide-scrollbar">
+                <!-- El carrusel se inyecta por JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Principal (Filtros y Grid) -->
+    <section id="productos" class="py-12 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-extrabold text-brand-dark mb-8">Nuestro Catálogo</h2>
+            
+            <div class="flex flex-col lg:flex-row gap-8">
+                <!-- Panel de Filtros -->
+                <aside class="lg:w-1/4">
+                    <div class="bg-white p-6 rounded-2xl shadow-sm sticky top-28 border border-gray-100">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-bold text-brand-dark flex items-center gap-2">
+                                <i class="fa-solid fa-sliders text-brand-green"></i> Filtros
+                            </h3>
+                            <button onclick="resetFilters()" class="text-sm text-brand-red font-semibold hover:underline">Limpiar</button>
+                        </div>
+                        
+                        <div class="space-y-5">
+                            <!-- Marca -->
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Marca</label>
+                                <select id="filter-marca" onchange="applyFilters()" class="w-full border-gray-300 rounded-lg p-3 bg-gray-50 text-brand-dark focus:ring-brand-green focus:border-brand-green outline-none transition-shadow border">
+                                    <option value="ALL">Todas las marcas</option>
+                                </select>
+                            </div>
+                            
+                            <!-- Público Objetivo -->
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Categoría</label>
+                                <select id="filter-publico" onchange="applyFilters()" class="w-full border-gray-300 rounded-lg p-3 bg-gray-50 text-brand-dark focus:ring-brand-green focus:border-brand-green outline-none transition-shadow border">
+                                    <option value="ALL">Todos</option>
+                                </select>
+                            </div>
+
+                            <!-- Color -->
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Color</label>
+                                <select id="filter-color" onchange="applyFilters()" class="w-full border-gray-300 rounded-lg p-3 bg-gray-50 text-brand-dark focus:ring-brand-green focus:border-brand-green outline-none transition-shadow border">
+                                    <option value="ALL">Todos los colores</option>
+                                </select>
+                            </div>
+
+                            <!-- Talla -->
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Talla</label>
+                                <select id="filter-talla" onchange="applyFilters()" class="w-full border-gray-300 rounded-lg p-3 bg-gray-50 text-brand-dark focus:ring-brand-green focus:border-brand-green outline-none transition-shadow border">
+                                    <option value="ALL">Todas las tallas</option>
+                                </select>
+                            </div>
+
+                            <!-- Precio Máximo -->
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">
+                                    Precio Máx: $<span id="price-display">200</span>
+                                </label>
+                                <input type="range" id="filter-precio" min="0" max="250" value="250" oninput="updatePriceDisplay(); applyFilters()" class="w-full accent-brand-green">
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+
+                <!-- Grid de Productos -->
+                <main class="lg:w-3/4">
+                    <!-- Contador de resultados -->
+                    <div class="mb-4 text-gray-600 font-medium">
+                        Mostrando <span id="results-count" class="text-brand-dark font-bold">0</span> productos
+                    </div>
+                    
+                    <!-- Contenedor Grid -->
+                    <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+                        <!-- Las tarjetas se inyectan por JS -->
+                    </div>
+
+                    <!-- Mensaje sin resultados -->
+                    <div id="no-results" class="hidden text-center py-20">
+                        <i class="fa-solid fa-box-open text-6xl text-gray-300 mb-4"></i>
+                        <h3 class="text-2xl font-bold text-brand-dark">No encontramos zapatos con esos filtros</h3>
+                        <p class="text-gray-500 mt-2">Intenta ajustar tu búsqueda o limpiar los filtros.</p>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-brand-dark text-white py-12 border-t-4 border-brand-yellow1">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-2xl font-extrabold mb-4">Calzado<span class="text-brand-green">Pro</span></h2>
+            <p class="text-gray-400 mb-6">Tu estilo, tu confort, a un mensaje de distancia.</p>
+            <div class="flex justify-center gap-6 mb-8">
+                <a href="#" class="text-gray-400 hover:text-brand-yellow1 text-2xl transition-colors"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" class="text-gray-400 hover:text-brand-yellow1 text-2xl transition-colors"><i class="fa-brands fa-facebook"></i></a>
+                <a href="#" class="text-gray-400 hover:text-brand-yellow1 text-2xl transition-colors"><i class="fa-brands fa-tiktok"></i></a>
+            </div>
+            <p class="text-sm text-gray-500">&copy; 2026 CalzadoPro. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Lógica -->
+    <script>
+        // Número de WhatsApp de la tienda (Formato internacional sin el '+')
+        const WHATSAPP_NUMBER = "1234567890"; 
+
+        // 1. Simulación de Base de Datos (Google Sheets Array)
+        const mockDatabase = [
+            {
+                id: 1,
+                marca: "Nike",
+                nombre_modelo: "Air Max Runner",
+                color: "Blanco",
+                talla: "40, 41, 42, 43",
+                publico_objetivo: "Hombre",
+                precio: 120,
+                url_imagen: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600&q=80",
+                mensaje_whatsapp: "Hola CalzadoPro, quiero comprar los Nike Air Max Runner (Blanco). ¿Tienen disponibilidad en talla _ ?",
+                clics_venta: 145,
+                habilitado: "SI"
+            },
+            {
+                id: 2,
+                marca: "Adidas",
+                nombre_modelo: "Ultraboost Elite",
+                color: "Negro",
+                talla: "38, 39, 40, 41",
+                publico_objetivo: "Mujer",
+                precio: 150,
+                url_imagen: "https://images.unsplash.com/photo-1515955656352-a1fa3ffcd111?auto=format&fit=crop&w=600&q=80",
+                mensaje_whatsapp: "Hola! Me interesan los Adidas Ultraboost Elite en Negro. Quisiera saber más detalles.",
+                clics_venta: 210,
+                habilitado: "SI"
+            },
+            {
+                id: 3,
+                marca: "Puma",
+                nombre_modelo: "Urban Street",
+                color: "Amarillo",
+                talla: "39, 40, 42",
+                publico_objetivo: "Unisex",
+                precio: 85,
+                url_imagen: "https://images.unsplash.com/photo-1608231387042-66d1773070a5?auto=format&fit=crop&w=600&q=80",
+                mensaje_whatsapp: "Buenas, quiero encargar los Puma Urban Street color Amarillo. Envío a domicilio por favor.",
+                clics_venta: 95,
+                habilitado: "SI"
+            },
+            {
+                id: 4,
+                marca: "Nike",
+                nombre_modelo: "Jordan Retro Classic",
+                color: "Rojo",
+                talla: "41, 42, 43, 44",
+                publico_objetivo: "Hombre",
+                precio: 180,
+                url_imagen: "https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?auto=format&fit=crop&w=600&q=80",
+                mensaje_whatsapp: "Hola, necesito los Jordan Retro Classic en Rojo. ¿Están disponibles hoy?",
+                clics_venta: 320,
+                habilitado: "SI"
+            },
+            {
+                id: 5,
+                marca: "Reebok",
+                nombre_modelo: "Classic Leather",
+                color: "Blanco",
+                talla: "36, 37, 38",
+                publico_objetivo: "Mujer",
+                precio: 75,
+                url_imagen: "https://images.unsplash.com/photo-1571216300128-066e409b62dc?auto=format&fit=crop&w=600&q=80",
+                mensaje_whatsapp: "Hola CalzadoPro. Quiero las Reebok Classic Blancas. ¿Aceptan transferencia?",
+                clics_venta: 45,
+                habilitado: "SI"
+            },
+            {
+                id: 6,
+                marca: "Vans",
+                nombre_modelo: "Old Skool Pro",
+                color: "Negro",
+                talla: "38, 39, 40, 41, 42",
+                publico_objetivo: "Unisex",
+                precio: 65,
+                url_imagen: "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?auto=format&fit=crop&w=600&q=80",
+                mensaje_whatsapp: "Quiero hacer un pedido de los Vans Old Skool Pro. Me confirman stock?",
+                clics_venta: 180,
+                habilitado: "SI"
+            },
+            {
+                id: 7,
+                marca: "Nike",
+                nombre_modelo: "Air Force 1",
+                color: "Azul",
+                talla: "40, 42",
+                publico_objetivo: "Hombre",
+                precio: 130,
+                url_imagen: "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=600&q=80",
+                mensaje_whatsapp: "Hola, tienen los Air Force 1 en Azul?",
+                clics_venta: 12,
+                habilitado: "NO" // Este no debe mostrarse
+            },
+            {
+                id: 8,
+                marca: "New Balance",
+                nombre_modelo: "574 Core",
+                color: "Gris",
+                talla: "41, 42, 43",
+                publico_objetivo: "Hombre",
+                precio: 95,
+                url_imagen: "https://images.unsplash.com/photo-1539185441755-769473a23570?auto=format&fit=crop&w=600&q=80",
+                mensaje_whatsapp: "Hola. Quiero comprar los New Balance 574 Core Gris. ¿Costo de envío?",
+                clics_venta: 88,
+                habilitado: "SI"
+            }
+        ];
+
+        // Solo trabajar con productos habilitados
+        let activeProducts = mockDatabase.filter(p => p.habilitado === "SI");
+
+        // Utilidades para UI
+        function formatPrice(price) {
+            return `$${price.toFixed(2)}`;
+        }
+
+        // Generar Tarjeta HTML
+        function generateProductCard(product, isCarousel = false) {
+            const sizeClasses = isCarousel ? "min-w-[280px] sm:min-w-[320px] max-w-[320px]" : "w-full";
+            const badgeHtml = product.clics_venta > 200 
+                ? `<span class="absolute top-3 left-3 bg-brand-red text-white text-xs font-bold px-2 py-1 rounded shadow-md z-10">¡Pocas Unidades!</span>`
+                : '';
+
+            return `
+                <div class="product-card bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 flex flex-col snap-center ${sizeClasses}">
+                    <div class="relative h-64 overflow-hidden group">
+                        ${badgeHtml}
+                        <img src="${product.url_imagen}" alt="${product.nombre_modelo}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-black bg-opacity-10 group-hover:bg-opacity-0 transition-all"></div>
+                    </div>
+                    
+                    <div class="p-5 flex flex-col flex-grow">
+                        <div class="flex justify-between items-start mb-2">
+                            <div>
+                                <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">${product.marca}</p>
+                                <h3 class="text-lg font-bold text-brand-dark leading-tight mt-1">${product.nombre_modelo}</h3>
+                            </div>
+                            <span class="text-xl font-extrabold text-brand-dark">${formatPrice(product.precio)}</span>
+                        </div>
+                        
+                        <div class="mt-2 space-y-1 text-sm text-gray-500 flex-grow">
+                            <p><i class="fa-solid fa-palette w-4"></i> ${product.color}</p>
+                            <p><i class="fa-solid fa-ruler w-4"></i> Tallas: ${product.talla}</p>
+                            <p><i class="fa-solid fa-user w-4"></i> ${product.publico_objetivo}</p>
+                        </div>
+                        
+                        <button onclick="handlePurchase(${product.id})" class="mt-5 w-full bg-brand-green hover:bg-green-700 text-white font-bold py-3 px-4 rounded-xl flex justify-center items-center gap-2 transition-colors shadow-md">
+                            <i class="fa-brands fa-whatsapp text-xl"></i>
+                            Hacer Pedido
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        // 2. Renderizar Carrusel (Los 3 más vendidos)
+        function renderCarousel() {
+            const container = document.getElementById('carousel-container');
+            const topProducts = [...activeProducts]
+                .sort((a, b) => b.clics_venta - a.clics_venta)
+                .slice(0, 3);
+            
+            container.innerHTML = topProducts.map(p => generateProductCard(p, true)).join('');
+        }
+
+        // 3. Poblar Filtros dinámicamente
+        function populateFilters() {
+            const addOptions = (selectId, key) => {
+                const select = document.getElementById(selectId);
+                // Extraer valores únicos
+                const uniqueValues = [...new Set(activeProducts.map(p => p[key]))].sort();
+                uniqueValues.forEach(val => {
+                    const option = document.createElement('option');
+                    option.value = val;
+                    option.textContent = val;
+                    select.appendChild(option);
+                });
+            };
+
+            addOptions('filter-marca', 'marca');
+            addOptions('filter-color', 'color');
+            addOptions('filter-publico', 'publico_objetivo');
+
+            // Tallas es un poco distinto porque es un string separado por comas
+            const allSizes = activeProducts.flatMap(p => p.talla.split(',').map(s => s.trim()));
+            const uniqueSizes = [...new Set(allSizes)].sort((a, b) => Number(a) - Number(b));
+            
+            const tallaSelect = document.getElementById('filter-talla');
+            uniqueSizes.forEach(size => {
+                const option = document.createElement('option');
+                option.value = size;
+                option.textContent = size;
+                tallaSelect.appendChild(option);
+            });
+
+            // Precio Maximo inicial
+            const maxPriceInDb = Math.max(...activeProducts.map(p => p.precio));
+            const slider = document.getElementById('filter-precio');
+            slider.max = Math.ceil(maxPriceInDb / 10) * 10; 
+            slider.value = slider.max;
+            updatePriceDisplay();
+        }
+
+        // 4. Lógica de Filtrado y Renderizado del Grid
+        function updatePriceDisplay() {
+            document.getElementById('price-display').innerText = document.getElementById('filter-precio').value;
+        }
+
+        function applyFilters() {
+            const marca = document.getElementById('filter-marca').value;
+            const publico = document.getElementById('filter-publico').value;
+            const color = document.getElementById('filter-color').value;
+            const talla = document.getElementById('filter-talla').value;
+            const precioMax = Number(document.getElementById('filter-precio').value);
+
+            const filtered = activeProducts.filter(p => {
+                const matchMarca = marca === "ALL" || p.marca === marca;
+                const matchPublico = publico === "ALL" || p.publico_objetivo === publico;
+                const matchColor = color === "ALL" || p.color === color;
+                const matchTalla = talla === "ALL" || p.talla.split(',').map(s=>s.trim()).includes(talla);
+                const matchPrecio = p.precio <= precioMax;
+
+                return matchMarca && matchPublico && matchColor && matchTalla && matchPrecio;
+            });
+
+            renderGrid(filtered);
+        }
+
+        function renderGrid(productsToRender) {
+            const grid = document.getElementById('products-grid');
+            const noResults = document.getElementById('no-results');
+            const countDisplay = document.getElementById('results-count');
+
+            countDisplay.innerText = productsToRender.length;
+
+            if (productsToRender.length === 0) {
+                grid.innerHTML = '';
+                noResults.classList.remove('hidden');
+            } else {
+                noResults.classList.add('hidden');
+                grid.innerHTML = productsToRender.map(p => generateProductCard(p, false)).join('');
+            }
+        }
+
+        function resetFilters() {
+            document.getElementById('filter-marca').value = "ALL";
+            document.getElementById('filter-publico').value = "ALL";
+            document.getElementById('filter-color').value = "ALL";
+            document.getElementById('filter-talla').value = "ALL";
+            
+            const slider = document.getElementById('filter-precio');
+            slider.value = slider.max;
+            updatePriceDisplay();
+            
+            applyFilters();
+        }
+
+        // 5. Botón de Compra - Conexión WhatsApp y analítica simulada
+        function handlePurchase(productId) {
+            // 5.1 Encontrar producto
+            const productIndex = mockDatabase.findIndex(p => p.id === productId);
+            if(productIndex === -1) return;
+            
+            const product = mockDatabase[productIndex];
+
+            // 5.2 Simular aumento de clics en la Base de Datos (Google Sheets via Webhook/API)
+            product.clics_venta += 1;
+            console.log(`[Simulación de BD] Actualizando fila ${product.id}. Clics de venta ahora: ${product.clics_venta}`);
+            // Aquí iría un fetch() real hacia un script de Google Apps Script (Web App) para escribir el +1
+            
+            // Re-renderizamos el carrusel de más vendidos para reflejar cambios en tiempo real si superó a otro
+            renderCarousel();
+
+            // 5.3 Redirigir a WhatsApp
+            const message = encodeURIComponent(product.mensaje_whatsapp);
+            const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${message}`;
+            
+            // Abrir en pestaña nueva
+            window.open(whatsappUrl, '_blank');
+        }
+
+        // Inicialización al cargar la página
+        window.onload = function() {
+            renderCarousel();
+            populateFilters();
+            applyFilters(); // Renderiza el grid inicialmente
+        };
+
+    </script>
+</body>
+</html>
